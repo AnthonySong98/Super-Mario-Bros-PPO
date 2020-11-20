@@ -56,6 +56,10 @@ With my code, you can:
 * **Test your trained model** by running `python test.py`. For example: `python test.py --world 5 --stage 2`
 
 **Note**: If you got stuck at any level, try training again with different **learning rates**. You could conquer 29/32 levels like what I did, by changing only **learning rate**. Normally I set **learning rate** as **1e-3**, **1e-4** or **1e-5**. However, there are some difficult levels, including level **1-3**, in which I finally trained successfully with **learning rate** of **7e-5** after failed for 70 times.
+```
+Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
+export DISPLAY=:0
+```
 
 ## Docker
 

@@ -1,6 +1,3 @@
-"""
-@author: Viet Nguyen <nhviet1009@gmail.com>
-"""
 import os
 
 os.environ['OMP_NUM_THREADS'] = '1'
@@ -18,8 +15,9 @@ def get_args():
     parser.add_argument("--world", type=int, default=1)
     parser.add_argument("--stage", type=int, default=1)
     parser.add_argument("--action_type", type=str, default="simple")
-    parser.add_argument("--saved_path", type=str, default="trained_models")
-    parser.add_argument("--output_path", type=str, default="output")
+    parser.add_argument("--saved_path", type=str, default="test_trained_models")
+    parser.add_argument("--output_path", type=str, default="test_output")
+    parser.add_argument("--iter", type=str, default="")
     args = parser.parse_args()
     return args
 
@@ -35,14 +33,16 @@ def test(opt):
         actions = SIMPLE_MOVEMENT
     else:
         actions = COMPLEX_MOVEMENT
+    # print("env create success")
     env = create_train_env(opt.world, opt.stage, actions,
-                           "{}/video_{}_{}.mp4".format(opt.output_path, opt.world, opt.stage))
+                           "{}/video_{}_{}_{}.mp4".format(opt.output_path, opt.world, opt.stage,opt.iter))
+    # print("env create success")
     model = PPO(env.observation_space.shape[0], len(actions))
     if torch.cuda.is_available():
-        model.load_state_dict(torch.load("{}/ppo_super_mario_bros_{}_{}".format(opt.saved_path, opt.world, opt.stage)))
+        model.load_state_dict(torch.load("{}/ppo_super_mario_bros_{}_{}_{}".format(opt.saved_path, opt.world, opt.stage,opt.iter)))
         model.cuda()
     else:
-        model.load_state_dict(torch.load("{}/ppo_super_mario_bros_{}_{}".format(opt.saved_path, opt.world, opt.stage),
+        model.load_state_dict(torch.load("{}/ppo_super_mario_bros_{}_{}_{}".format(opt.saved_path, opt.world, opt.stage,opt.iter),
                                          map_location=lambda storage, loc: storage))
     model.eval()
     state = torch.from_numpy(env.reset())

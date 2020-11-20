@@ -1,14 +1,10 @@
-"""
-@author: Viet Nguyen <nhviet1009@gmail.com>
-"""
-
 import torch
 from src.env import create_train_env
 from src.model import PPO
 import torch.nn.functional as F
 from collections import deque
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT, COMPLEX_MOVEMENT, RIGHT_ONLY
-
+import random
 
 def eval(opt, global_model, num_states, num_actions):
     torch.manual_seed(123)
@@ -39,12 +35,14 @@ def eval(opt, global_model, num_states, num_actions):
         state, reward, done, info = env.step(action)
 
         # Uncomment following lines if you want to save model whenever level is completed
-        # if info["flag_get"]:
-        #     print("Finished")
-        #     torch.save(local_model.state_dict(),
-        #                "{}/ppo_super_mario_bros_{}_{}_{}".format(opt.saved_path, opt.world, opt.stage, curr_step))
+        if info["flag_get"]:
+        # if random.randint(0, 10)%2 == 0:
+            # print("Finished")
+            torch.save(local_model.state_dict(),
+                       "{}/ppo_super_mario_bros_{}_{}_{}".format(opt.saved_path, opt.world, opt.stage, curr_step))
+            # return
 
-        env.render()
+        # env.render()
         actions.append(action)
         if curr_step > opt.num_global_steps or actions.count(actions[0]) == actions.maxlen:
             done = True

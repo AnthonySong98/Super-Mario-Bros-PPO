@@ -1,7 +1,3 @@
-"""
-@author: Viet Nguyen <nhviet1009@gmail.com>
-"""
-
 import gym_super_mario_bros
 from gym.spaces import Box
 from gym import Wrapper
@@ -11,6 +7,7 @@ import cv2
 import numpy as np
 import subprocess as sp
 import torch.multiprocessing as mp
+import sys, errno
 
 
 class Monitor:
@@ -24,7 +21,11 @@ class Monitor:
             pass
 
     def record(self, image_array):
+        # try:
         self.pipe.stdin.write(image_array.tostring())
+        # except IOError as e:
+        #     if e.errno == errno.EPIPE:
+        #         pass
 
 
 def process_frame(frame):

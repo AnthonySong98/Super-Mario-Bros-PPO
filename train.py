@@ -1,7 +1,3 @@
-"""
-@author: Viet Nguyen <nhviet1009@gmail.com>
-"""
-
 import os
 
 os.environ['OMP_NUM_THREADS'] = '1'
@@ -15,7 +11,7 @@ from torch.distributions import Categorical
 import torch.nn.functional as F
 import numpy as np
 import shutil
-
+import matplotlib.pyplot as plt
 
 def get_args():
     parser = argparse.ArgumentParser(
@@ -36,7 +32,7 @@ def get_args():
     parser.add_argument("--save_interval", type=int, default=50, help="Number of steps between savings")
     parser.add_argument("--max_actions", type=int, default=200, help="Maximum repetition steps in test phase")
     parser.add_argument("--log_path", type=str, default="tensorboard/ppo_super_mario_bros")
-    parser.add_argument("--saved_path", type=str, default="trained_models")
+    parser.add_argument("--saved_path", type=str, default="test_trained_models")
     args = parser.parse_args()
     return args
 
@@ -66,13 +62,16 @@ def train(opt):
     if torch.cuda.is_available():
         curr_states = curr_states.cuda()
     curr_episode = 0
+    episode_plot = []
+    R_plot = []
     while True:
-        # if curr_episode % opt.save_interval == 0 and curr_episode > 0:
+        if curr_episode % opt.save_interval == 0 and curr_episode > 0:
         #     torch.save(model.state_dict(),
         #                "{}/ppo_super_mario_bros_{}_{}".format(opt.saved_path, opt.world, opt.stage))
-        #     torch.save(model.state_dict(),
-        #                "{}/ppo_super_mario_bros_{}_{}_{}".format(opt.saved_path, opt.world, opt.stage, curr_episode))
+            torch.save(model.state_dict(),
+                       "{}/ppo_super_mario_bros_{}_{}_{}".format(opt.saved_path, opt.world, opt.stage, curr_episode))
         curr_episode += 1
+        episode_plot.append(int(curr_episode))
         old_log_policies = []
         actions = []
         values = []
@@ -123,6 +122,13 @@ def train(opt):
         R = R[::-1]
         R = torch.cat(R).detach()
         advantages = R - values
+        print("mean reward:", torch.mean(R).item())
+        R_plot.append(torch.mean(R).item())
+        plt.plot(episode_plot,R_plot,"r-")
+        plt.xlabel('Episode')
+        plt.ylabel('Mean Reward (PPO)')
+        plt.savefig("ppo_reward_episode.pdf")
+        np.savetxt("ppo_reward_episode.csv", np.array(R_plot), delimiter=",")
         for i in range(opt.num_epochs):
             indice = torch.randperm(opt.num_local_steps * opt.num_processes)
             for j in range(opt.batch_size):
