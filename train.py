@@ -1,4 +1,5 @@
 import os
+import datetime
 
 os.environ['OMP_NUM_THREADS'] = '1'
 import argparse
@@ -64,6 +65,8 @@ def train(opt):
     curr_episode = 0
     episode_plot = []
     R_plot = []
+    ep_reward_plot = []
+    start_datetime = datetime.datetime.now().strftime("%m-%d_%H-%M")
     while True:
         if curr_episode % opt.save_interval == 0 and curr_episode > 0:
         #     torch.save(model.state_dict(),
@@ -122,13 +125,23 @@ def train(opt):
         R = R[::-1]
         R = torch.cat(R).detach()
         advantages = R - values
-        print("mean reward:", torch.mean(R).item())
+        print("mean big R:", torch.mean(R).item())
+        episode_reward_mean = torch.stack(rewards).mean(dim=1, keepdim=True).sum().item()
+        print("mean reward", episode_reward_mean)
         R_plot.append(torch.mean(R).item())
+        ep_reward_plot.append(episode_reward_mean)
         plt.plot(episode_plot,R_plot,"r-")
         plt.xlabel('Episode')
+        plt.ylabel('Mean R (PPO)')
+        plt.savefig("ppo_R_episode_{}.pdf".format(start_datetime))
+        plt.close()
+        plt.plot(episode_plot,ep_reward_plot,"r-")
+        plt.xlabel('Episode')
         plt.ylabel('Mean Reward (PPO)')
-        plt.savefig("ppo_reward_episode.pdf")
-        np.savetxt("ppo_reward_episode.csv", np.array(R_plot), delimiter=",")
+        plt.savefig("ppo_reward_episode_{}.pdf".format(start_datetime))
+        plt.close()
+        np.savetxt("ppo_R_episode_{}.csv".format(start_datetime), np.array(R_plot), delimiter=",")
+        np.savetxt("ppo_reward_episode_{}.csv".format(start_datetime), np.array(ep_reward_plot), delimiter=",")
         for i in range(opt.num_epochs):
             indice = torch.randperm(opt.num_local_steps * opt.num_processes)
             for j in range(opt.batch_size):
