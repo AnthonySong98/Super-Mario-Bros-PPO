@@ -52,14 +52,14 @@ class CustomReward(Wrapper):
         if self.monitor:
             self.monitor.record(state)
         state = process_frame(state)
-        reward += (info["score"] - self.curr_score) / 40.
+        #reward += (info["score"] - self.curr_score) / 40.
         self.curr_score = info["score"]
         if done:
             if info["flag_get"]:
                 reward += 50
             else:
                 reward -= 50
-        return state, reward / 10., done, info
+        return state, reward, done, info
 
     def reset(self):
         self.curr_score = 0
