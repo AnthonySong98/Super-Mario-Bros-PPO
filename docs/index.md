@@ -5,6 +5,9 @@ https://mycuhk-my.sharepoint.com/:v:/g/personal/1155154521_link_cuhk_edu_hk/ERfr
 
 [![Watch the video](https://i1.wp.com/img.bulevardionline.com//2020/09/super-mario-bros-scaled-1.jpg?resize=1024%2C541&ssl=1)](https://mycuhk-my.sharepoint.com/:v:/g/personal/1155154521_link_cuhk_edu_hk/ERfr3fTGX0ZPnwU2RMqoRnQBQY-qN2rRTpBaYPx0bTf4og?e=ICcoXH)
 
+<object width="400" height="500" type="application/pdf" data="./docs/Super_Mario_Bros_Game_Playing_with_Reinforcement_Learning.pdf?#zoom=85&scrollbar=0&toolbar=0&navpanes=0">
+    <p>File not loaded!</p>
+</object>
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Markdown
