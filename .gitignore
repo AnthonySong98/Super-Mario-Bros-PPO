@@ -1,0 +1,11 @@
+__pycache__
+.ipynb_checkpoints
+.vscode
+test_output/*
+test_trained_models/*
+trained_models/*
+!test_trained_models/ppo_super_mario_bros_1_1_271
+*.csv
+*.pdf
+*.cmd
+*.log
