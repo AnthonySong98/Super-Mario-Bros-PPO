@@ -1,6 +1,9 @@
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/AnthonySong98/Super-Mario-Bros-PPO/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+https://mycuhk-my.sharepoint.com/:v:/g/personal/1155154521_link_cuhk_edu_hk/ERfr3fTGX0ZPnwU2RMqoRnQBQY-qN2rRTpBaYPx0bTf4og?e=ICcoXH
+
+[![Watch the video](https://i1.wp.com/img.bulevardionline.com//2020/09/super-mario-bros-scaled-1.jpg?resize=1024%2C541&ssl=1)](https://mycuhk-my.sharepoint.com/:v:/g/personal/1155154521_link_cuhk_edu_hk/ERfr3fTGX0ZPnwU2RMqoRnQBQY-qN2rRTpBaYPx0bTf4og?e=ICcoXH)
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
