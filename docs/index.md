@@ -8,6 +8,10 @@ https://mycuhk-my.sharepoint.com/:v:/g/personal/1155154521_link_cuhk_edu_hk/ERfr
 <object width="400" height="500" type="application/pdf" data="https://github.com/AnthonySong98/Super-Mario-Bros-PPO/raw/main/docs/Super_Mario_Bros_Game_Playing_with_Reinforcement_Learning.pdf?#zoom=85&scrollbar=0&toolbar=0&navpanes=0">
     <p>File not loaded!</p>
 </object>
+
+<embed src="https://github.com/AnthonySong98/Super-Mario-Bros-PPO/raw/main/docs/Super_Mario_Bros_Game_Playing_with_Reinforcement_Learning.pdf" width="600" height="475" 
+ type="application/pdf">
+ 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Markdown
